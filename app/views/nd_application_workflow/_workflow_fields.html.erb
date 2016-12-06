@@ -15,7 +15,7 @@
     <%= f.hidden_field :workflow_type, class: 'workflow_type' %>
     <%= f.check_box :email_include_detail, class: 'nd_workflow_include_details_cb' %>  Include Detail in Notification Email<br />
     Email Comments: <%= f.text_area :email_notes,  size: '20x2', maxlength: '500' %>
-    <%= f.hidden_field :assigned_to, class: 'assigned_to_netid' %>
+    <%= f.hidden_field :assigned_to_netid, class: 'assigned_to_netid' %>
     <%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %>
     <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
   </div>
