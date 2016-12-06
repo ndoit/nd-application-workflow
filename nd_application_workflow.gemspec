@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = NdApplicationWorkflow::VERSION
   s.authors     = ["Teresa Meyer"]
   s.email       = ["tmeyer2@nd.edu"]
-  s.homepage    = "TODO"
+  s.homepage    = "https://bitbucket.org/nd-oit/nd-application-workflow"
   s.summary     = "Notification and approval workflow framework for ND applications"
   s.description = "Provides default migrations, view partials, javascript, css for notification and approval workflows to ND active employees for ND applications"
   s.license     = "MIT"
