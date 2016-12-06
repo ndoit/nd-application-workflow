@@ -1,0 +1,22 @@
+<%= form_for(@parent_record) do |pr| %>
+  <% if @parent_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@parent_record.errors.count, "error") %> prohibited this parent_record from being saved:</h2>
+
+      <ul>
+      <% @parent_record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= pr.label :parent_desc %><br>
+    <%= pr.text_field :parent_desc %>
+  </div>
+    <%= link_to_add_association 'Add', pr, :nd_workflows %>
+  <div class="actions">
+    <%= pr.submit %>
+  </div>
+<% end %>

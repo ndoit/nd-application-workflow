@@ -1,0 +1,24 @@
+<%= form_for(@prec) do |f| %>
+  <% if @prec.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@prec.errors.count, "error") %> prohibited this prec from being saved:</h2>
+
+      <ul>
+      <% @prec.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :prec_desc %><br>
+    <%= f.text_field :prec_desc %>
+  </div>
+  <%= link_to_add_association 'Add', f, :drecs %>
+  <%= f.object.to_yaml %>
+  <% if @prec.nil? %> IS NIL <% else %> is not Nil<% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

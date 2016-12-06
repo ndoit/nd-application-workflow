@@ -1,0 +1,1 @@
+json.partial! "precs/prec", prec: @prec

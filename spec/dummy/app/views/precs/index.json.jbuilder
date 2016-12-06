@@ -1,0 +1,1 @@
+json.array! @precs, partial: 'precs/prec', as: :prec

@@ -1,0 +1,21 @@
+<tr class="nested-fields" >
+    <td colspann="5">
+    <div class="row">
+        <div class="large-3 medium-3 small-4 left columns">
+          <strong><span class="notification_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span> </br>
+          <span class="notification_netid"><%= f.object.assigned_to %></span>
+        </strong>
+        </div>
+  <div class="large-1 medium-1 small-1 right columns"><%= link_to_remove_association image_tag("x_16x16.png", :border=>0, :alt=>"Remove Notification", :title=>"Remove Notification", :tabIndex=>"500"), f %>
+  </div>
+        <div class="large-8 medium-8 small-7 right columns">
+          <% approval_checked = f.object.work_flow_type == 'submitter_approval' %>
+          <%= f.check_box :approval, {checked: approval_checked, class: 'notification_approval_cb'} %> Request Approval
+                <%= f.hidden_field :work_flow_type, class: 'work_flow_type' %><br />
+          <%= f.check_box :email_include_document_detail, class: 'notification_include_details_cb' %>  Include Document Detail in Notification Email<br />
+          Email Comments: <%= f.text_area :fyi_notes,  size: '20x2', maxlength: '500' %>
+          <%= f.hidden_field :assigned_to, class: 'assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
+        </div>
+    </div>
+    </td>
+</tr>

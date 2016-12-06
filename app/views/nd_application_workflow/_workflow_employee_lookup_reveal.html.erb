@@ -1,0 +1,48 @@
+<div id="nd_workflow_entry"  class="reveal-modal medium" data-reveal style="max-height: 80%;">
+    <div class="row">
+    <div class="large-12 columns ">
+          <h2>Search for an Employee to Notify.</h2>
+          <p>You may enter all or part of the Last Name and First Name or all or part of the Net ID.</p>
+    </div>
+    </div>
+    <div id="nd_workflow_employee_not_found" class="error" style="display:none;">An employee could not be found with the provided information.  Please check your entries and try again.</div>
+    <div id="nd_workflow_employee_invalid_entries" class="error" style="display:none;">Invalid entries.  You must provide part or all of the last name -OR- part or all of the net id.  First name is optional.</div>
+    <div class="row">
+    <div class="large-4 medium-4 small-12 columns left">
+            <label>Last Name</label>
+            <%= text_field_tag(:f_nd_workflow_input_last, nil, {:class => "execute_on_return"}) %>
+    </DIV>
+    <div class="large-4 medium-4 small-12 columns left">
+            <label>First Name</label>
+            <%= text_field_tag(:f_nd_workflow_input_first, nil, {:class => "execute_on_return"}) %>
+    </div>
+    <div class="large-4 medium-$ small-6 columns left">
+            <label>Net ID</label>
+            <%= text_field_tag(:f_nd_workflow_input_net_id, nil, {:class => "execute_on_return"}) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-3 medium-3 small-6 columns left">
+           <%= link_to "Find", "javascript: void(0);", class: "button", id: "b_nd_workflow_find_employee" %>
+    </div>
+    <div class="column left large-1 small-1"><div id="nd_workflow_find_employee_processing" >&nbsp;</div>
+    </div>
+    <div class="large-3 medium-3 small-6 columns right">
+            <a class="button" id='b_nd_workflow_add_cancel' >Cancel</a>
+    </div>
+
+  </div>
+
+  <div class="panel" id="notification_entry_results" style="display:none;">
+    <p>Click on one of the following employees to select.  Note: Only the first 30 matching employees are listed. If the employee you are looking for is not listed, refine your search and try again.</p>
+  <div class="row" id="nd_workflow_entry_search_results" >
+    <div class="large-12 medium-12 small-12 columns ">
+        <table id="nd_workflow_entry_results_table" class="plain">
+          <tbody>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

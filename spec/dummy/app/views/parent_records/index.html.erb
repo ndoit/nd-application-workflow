@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Parent Records</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parent desc</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @parent_records.each do |parent_record| %>
+      <tr>
+        <td><%= parent_record.parent_desc %></td>
+        <td><%= link_to 'Show', parent_record %></td>
+        <td><%= link_to 'Edit', edit_parent_record_path(parent_record) %></td>
+        <td><%= link_to 'Destroy', parent_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Parent record', new_parent_record_path %>
