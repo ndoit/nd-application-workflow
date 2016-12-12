@@ -24,7 +24,10 @@
           <div class="row">
             Email Comments: <%= f.text_area :email_notes,  size: '20x2', maxlength: '500' %>
           </div>
-          <%= f.hidden_field :assigned_to_netid, class: 'nd_workflow_assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'nd_workflow_assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'nd_workflow_assigned_to_last_name' %>
+          <%= f.hidden_field :assigned_to_netid, class: 'nd_workflow_assigned_to_netid' %>
+          <%= f.hidden_field :assigned_to_first_name, class: 'nd_workflow_assigned_to_first_name' %>
+          <%= f.hidden_field :assigned_to_last_name, class: 'nd_workflow_assigned_to_last_name' %>
+          <%= f.hidden_field :created_by_netid, class: 'nd_workflow_created_by_netid' %>
         </div>
     </div>
 </div>

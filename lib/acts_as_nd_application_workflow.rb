@@ -1,4 +1,4 @@
-require 'nd_application_workflow/class_methods'
+require 'nd_application_workflow/nd_workflow_class_methods'
 
 module ActsAsNdApplicationWorkflow
   def self.included(mod)

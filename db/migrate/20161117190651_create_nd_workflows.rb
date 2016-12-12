@@ -2,7 +2,10 @@ class CreateNdWorkflows < ActiveRecord::Migration
   def change
     create_table :nd_workflows do |t|
       t.integer :<parent_id>
-      # change the above to the table name of the parent (i.e. financial_document)
+      # change the above to use the table name of the parent
+      # for example change :<parent_id> to financial_document_id
+      #---------------------------------------------------------
+      # do not change anything below this line
       t.string :workflow_type
       # i.e. approval, fyi, task
       t.string :auto_or_manual
@@ -16,6 +19,7 @@ class CreateNdWorkflows < ActiveRecord::Migration
       t.text :approval_notes
       t.date :approved_date
       t.string :approved_by_netid
+      t.string :created_by_netid
 
       t.string :workflow_state
 

@@ -1,5 +1,8 @@
+require 'acts_as_nd_application_workflow_detail'
+
 class NdWorkflowDetail < ActiveRecord::Base
   belongs_to :nd_workflow
+  acts_as_nd_application_workflow_detail
 
   @@DETAIL_DATA_LABELS = {
     'JV' => 'Fund'
@@ -8,11 +11,4 @@ class NdWorkflowDetail < ActiveRecord::Base
     'OVERLIMIT' => 'Amount exceeds predefined limit'
   }
 
-  def detail_data_label
-    @@DETAIL_DATA_LABELS[detail_type]
-  end
-
-  def detail_key_description
-    @@DETAIL_KEY_DESCRIPTIONS[detail_key]
-  end
 end
