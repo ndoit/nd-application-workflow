@@ -10,4 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require jquery_ujs
+//= require cocoon
+//= require foundation
+//= require nd_application_workflow/application_workflow
+
 //= require_tree .
+
+$(document).ready(function() {
+	$(document).foundation();
+});

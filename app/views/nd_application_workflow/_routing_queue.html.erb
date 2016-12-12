@@ -1,12 +1,12 @@
 
-<div id="d_routing_queue">
+<div id="nd_workflows_routing_queue">
   <div class="row">
     <div class="columns small-2">Net ID</div>
     <div class="columns small-4">User name</div>
     <div class="columns small-4">Action Required</div>
     <div class="columns small-2">Status</div>
   </div>
-  <% application_workflows.each do |wf| %>
+  <% local_assigns[:nd_workflows].each do |wf| %>
       <div class="row" id="d_routing_queue_<%= wf.id %>" <% if wf.is_approval? %>class="short_bottom"<% end %>>
         <div class="columns small-2"><%= wf.assigned_to %></div>
         <div class="columns small-4"><%= wf.assigned_to_first_name %><%= wf.assigned_to_last_name %></div>

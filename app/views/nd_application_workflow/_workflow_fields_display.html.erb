@@ -1,17 +1,30 @@
-<div class="row">
-  <div class="large-3 medium-3 small-4 left columns">
-    <strong><span class="nd_workflow_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span> </br>
-    <span class="nd_workflow_netid"><%= f.object.assigned_to %></span>
-    </strong>
+<div class="nested-fields" >
+  <div class="row">
+    <div class="large-3 medium-3 small-4 left columns">
+      <div class="row">
+        <span class="nd_workflow_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span>
+      </div>
+      <div class="row">
+        <span class="nd_workflow_netid"><%= f.object.assigned_to_netid %></span>
+      </div>
+    </div>
+    <div class="right small-1 columns">&nbsp;</div>
+    <div class="large-8 medium-8 small-7 right columns">
+      <div class="row">
+        <% if output_custom_type_description %><%= f.object.workflow_custom_type_description %><% end %> <% if output_type_description %><%= f.object.workflow_type_description %><% end %>
+      </div>
+      <div class="row">
+        Document Detail <% unless f.object.email_include_detail %>Not <% end %>Included in Notification Email
+      </div>
+      <div class="row">
+        <% if f.object.email_notes %><strong>Email Comments:</strong> <%= f.object.email_notes %><% end %>
+      </div>
+        <%= f.hidden_field :workflow_type, class: 'work_flow_type' %>
+        <%= f.hidden_field :email_include_detail, class: 'nd_workflow_include_details_cb', value: true %>
+        <%= f.hidden_field :email_notes %>
+        <%= f.hidden_field :assigned_to_netid, class: 'assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
+    </div>
+
   </div>
 
-  <div class="large-8 medium-8 small-7 right columns">
-      <% if output_custom_type_description %><%= wf.workflow_custom_type_description %><% end %> <% if output_type_description %><%= wf.workflow_type_description %><% end %><br />
-      Document Detail <% unless f.object.email_include_detail %>Not <% end %>Included in Notification Email<br />
-      <%= if f.object.email_notes %><strong>Email Comments:</strong> <%= f.object.email_notes %><% end %>
-      <%= f.hidden_field :work_flow_type, class: 'work_flow_type' %>
-      <%= f.hidden_field :email_include_detail, class: 'nd_workflow_include_details_cb', value: true %>
-      <%= f.hidden_field :email_notes %>
-      <%= f.hidden_field :assigned_to, class: 'assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
-  </div>
 </div>

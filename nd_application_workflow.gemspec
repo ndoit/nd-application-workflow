@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.7.1"
   s.add_dependency "jquery-rails", "~> 4.2.1"
-
-
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "foundation-rails", "~> 5.4.3.0"
+  s.add_dependency "workflow"
+  s.add_development_dependency "sqlite3", '~> 1.3.11'
   s.add_development_dependency 'rspec-rails', '~> 3.5.0'
 end

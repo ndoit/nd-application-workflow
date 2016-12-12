@@ -1,21 +1,30 @@
-<tr class="nested-fields" >
-    <td colspann="5">
+<div class="nested-fields" >
+
     <div class="row">
         <div class="large-3 medium-3 small-4 left columns">
-          <strong><span class="notification_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span> </br>
-          <span class="notification_netid"><%= f.object.assigned_to %></span>
-        </strong>
+          <div class="row"><span class="nd_workflow_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span></div>
+          <div class="row"><span class="nd_workflow_netid"><%= f.object.assigned_to_netid %></span></div>
         </div>
-  <div class="large-1 medium-1 small-1 right columns"><%= link_to_remove_association image_tag("x_16x16.png", :border=>0, :alt=>"Remove Notification", :title=>"Remove Notification", :tabIndex=>"500"), f %>
-  </div>
+        <div class="large-1 medium-1 small-1 right columns"><%= link_to_remove_association image_tag("nd_application_workflow/x_16x16.png", :border=>0, :alt=>"Remove", :title=>"Remove", :tabIndex=>"500"), f %>
+        </div>
         <div class="large-8 medium-8 small-7 right columns">
-          <% approval_checked = f.object.work_flow_type == 'submitter_approval' %>
-          <%= f.check_box :approval, {checked: approval_checked, class: 'notification_approval_cb'} %> Request Approval
-                <%= f.hidden_field :work_flow_type, class: 'work_flow_type' %><br />
-          <%= f.check_box :email_include_document_detail, class: 'notification_include_details_cb' %>  Include Document Detail in Notification Email<br />
-          Email Comments: <%= f.text_area :fyi_notes,  size: '20x2', maxlength: '500' %>
-          <%= f.hidden_field :assigned_to, class: 'assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
+          <% approval_checked = f.object.workflow_type == 'approval' %>
+          <div class="row">
+            <% nd_workflow_approval_available = true if local_assigns[:nd_workflow_approval_available].nil? %>
+            <% if local_assigns[:nd_workflow_approval_available] %>
+            <%= f.check_box :approval, {checked: approval_checked, class: 'nd_workflow_approval_cb'} %> Request Approval
+            <% end %>
+
+            <%= f.hidden_field :workflow_type, class: 'nd_workflow_type' %>
+            <%= f.hidden_field :auto_or_manual, class: 'nd_workflow_auto_or_manual', value: 'manual' %>
+          </div>
+          <div class="row">
+            <%= f.check_box :email_include_detail, class: 'nd_workflow_email_include_detail_cb' %>  Include Transaction Detail in Notification Email
+          </div>
+          <div class="row">
+            Email Comments: <%= f.text_area :email_notes,  size: '20x2', maxlength: '500' %>
+          </div>
+          <%= f.hidden_field :assigned_to_netid, class: 'nd_workflow_assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'nd_workflow_assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'nd_workflow_assigned_to_last_name' %>
         </div>
     </div>
-    </td>
-</tr>
+</div>

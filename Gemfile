@@ -12,5 +12,7 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
-
+gem 'dotenv'
+gem 'cocoon'
 gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.2.3'
+gem 'workflow'

@@ -4,11 +4,19 @@ function enable_nd_workflows() {
   $('#b_add_nd_workflow').click( function() {
       show_search_for_nd_workflow();  });
   $('#b_nd_workflow_add_cancel').click( function() {
-    $('#nd_workflow_entry').foundation('reveal','close');
-    $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
+      $('#nd_workflow_entry').foundation('reveal','close');
+      $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
   });
   $('#b_nd_workflow_find_employee').click( function() {
-      find_nd_workflow_employees();  });
+      find_nd_workflow_employees();
+  });
+  $('.nd_workflow_approval_cb').on('change',function() {
+      set_workflow_type_on_approval_checkbox_change(this);
+  });
+  $('.nd_workflow_find_employees_on_return').keypress( function( event) {
+    find_nd_workflow_employee_on_return( event, this);
+  });
+
 }
 
 function show_search_for_nd_workflow() {
@@ -21,28 +29,28 @@ function show_search_for_nd_workflow() {
   $('#nd_workflow_entry').foundation('reveal','open');
 }
 
-function add_nd_workflow_user(tr_clicked) {
-    var net_id = tr_clicked.id.substring(7);
-    var first_name = $(tr_clicked.children[0]).text();
-    var last_name = $(tr_clicked.children[1]).text();
+function add_nd_workflow_user(row_clicked) {
+    var net_id = row_clicked.id.substring(9);
+    var first_name = $(row_clicked).find('.ndwf_first_name').text();
+    var last_name = $(row_clicked).find('.ndwf_last_name').text();
     $('#b_nd_workflow_insert').click();
-    var nd_workflow_data_rows = $('#nd_workflows_table >tbody >tr.nested-fields');
+    var nd_workflow_data_rows = $('#nd_workflow_list >div.nested-fields');
     i = nd_workflow_data_rows.length - 1;
     var display_name_spans = $('span.nd_workflow_name');
     display_name_spans[i].innerText = first_name + " " + last_name;
     var display_netid_spans = $('span.nd_workflow_netid');
     display_netid_spans[i].innerText = net_id;
-    var input_first_names = $('input.assigned_to_first_name');
+    var input_first_names = $('input.nd_workflow_assigned_to_first_name');
     input_first_names[i].value = first_name;
-    var input_last_names = $('input.assigned_to_last_name');
+    var input_last_names = $('input.nd_workflow_assigned_to_last_name');
     input_last_names[i].value = last_name;
-    var input_net_ids = $('input.assigned_to_netid');
+    var input_net_ids = $('input.nd_workflow_assigned_to_netid');
     input_net_ids[i].value = net_id;
-    var input_workflow_types = $('input.workflow_type');
+    var input_workflow_types = $('input.nd_workflow_type');
     input_workflow_types[i].value = 'fyi';
-    var input_workflow_manual = $('input.auto_or_manual');
+    var input_workflow_manual = $('input.nd_workflow_auto_or_manual');
     input_workflow_manual[i].value = 'manual';
-    var input_nd_workflow_include_details_cb = $('input.nd_workflow_include_details_cb');
+    var input_nd_workflow_include_details_cb = $('input.nd_workflow_email_include_detail_cb');
     input_nd_workflow_include_details_cb[i].checked = true;
     $('.nd_workflow_approval_cb').on('change',function() {
          set_workflow_type_on_approval_checkbox_change(this);
@@ -50,11 +58,20 @@ function add_nd_workflow_user(tr_clicked) {
 
     $('#nd_workflow_entry').foundation('reveal','close');
 }
+
+function find_nd_workflow_employee_on_return( e, field) {
+
+  var key=e.keyCode || e.which;
+  if (key == 13) {
+    find_nd_workflow_employees();
+  }
+}
+
 /*******************************************/
 function find_nd_workflow_employees() {
   $('#nd_workflow_employee_not_found').hide();
   $('#nd_workflow_employee_invalid_entries').hide();
-  $('#nd_workflow_entry_results_table >tbody >tr').remove();
+  $('#nd_workflow_entry_results_list >div').remove();
   var lname = encodeURIComponent($('#f_nd_workflow_input_last').val());
   var fname = encodeURIComponent($('#f_nd_workflow_input_first').val());
   var netid = encodeURIComponent($('#f_nd_workflow_input_net_id').val());
@@ -83,25 +100,38 @@ function find_nd_workflow_employees() {
                     do_alert("An error has occurred while attempting to retrieve employee data.  Please confirm that all necessary web services are running. (Find nd_workflow employee: " + errorThrown + ")");      },
     success: function (data, status, xhr) {
       if (data.length == 0) {
-        $('#nd_workflow_entry_results_table >tbody >tr').remove();
+        $('#nd_workflow_entry_results_list >div').remove();
         $('#nd_workflow_employee_not_found').show();
       }
       else {
         if (data[0].Employee == "None") {
-            $('#nd_workflow_entry_results_table >tbody >tr').remove();
+            $('#nd_workflow_entry_results_list >div').remove();
             $('#nd_workflow_employee_not_found').show();
         }
         else {
           var employees_count = 0;
-          $('#nd_workflow_entry_results_table >tbody >tr').remove();
+          $('#nd_workflow_entry_results_list >div').remove();
           for (i = 0; i < data.length; i++) {
+            if (data[i].Employee == "Error") {
+              alert(data[i].employee_title);
+            }
             if (data[i].employee_status == "A") {
-              tr_string = "<td>" + data[i].first_name + "</td>";
-              tr_string += "<td>"+ data[i].last_name + "</td>";
-              tr_string += "<td>" + data[i].net_id + "</td>";
-              tr_string += "<td>" + data[i].home_orgn + ", " + data[i].home_orgn_desc + "</td>";
-              tr_string += "<td>" + data[i].primary_title + "</td>";
-              $('#nd_workflow_entry_results_table').append("<tr class=\"ldc_list\" id=\"n_user_" + data[i].net_id + "\">" + tr_string + " </tr>");
+              var row_string = "<div class='row ndwf_list' id='ndwf_add_" + data[i].net_id +"'>";
+              row_string += "<div class='columns small-3'>";
+              row_string += "<span class='ndwf_first_name'>" + data[i].first_name + "</span>&nbsp;";
+              row_string += "<span class='ndwf_last_name'>" + data[i].last_name + "</span><br/>";
+              row_string += "<span class='ndwf_netid'>" + data[i].net_id + "</span>";
+              row_string += "</div>";
+              row_string += "<div class='columns small-5'>";
+              row_string += data[i].primary_title;
+              row_string += "</div>";
+              row_string += "<div class='columns small-4'>";
+              row_string += data[i].home_orgn + ", " + data[i].home_orgn_desc;
+              row_string += "</div>";
+
+              row_string += "</div>";
+
+              $('#nd_workflow_entry_results_list').append(row_string);
               employees_count += 1;
             }
           }
@@ -112,12 +142,23 @@ function find_nd_workflow_employees() {
         }
       }
 
-      $('#nd_workflow_entry_results_table >tbody >tr').on('click', function() {
+      $('.ndwf_list').on('click', function() {
         add_nd_workflow_user(this);
       });
 
-      $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
+  //    $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
     }
   });
+
+}
+
+function set_workflow_type_on_approval_checkbox_change (approval_checkbox) {
+  var workflow_type_field = approval_checkbox.nextElementSibling;
+  if (approval_checkbox.checked) {
+    workflow_type_field.value = 'approval';
+  }
+  else {
+    workflow_type_field.value = 'fyi';
+  }
 
 }
