@@ -5,13 +5,13 @@ This Rails plug in provides a framework for setting up and processing workflows 
 ### Installation ###
 
 Add the following to your Gemfile
-'''
+```
 gem 'dotenv' # if does not already exist
 gem 'cocoon' # if does not already exist
 gem 'workflow' # if does not already exist
 gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.2.3'  # if does not already exist
 gem 'nd_employee_lookup', '~> 0.1.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.1.0'
-'''
+```
 
 Run bundle install
 
