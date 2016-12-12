@@ -49,14 +49,21 @@ the following to your form:
 <input type="hidden" id="nd_workflow_current_user_id" name="nd_workflow_current_user_netid" value="<%= session.user_netid %>">
 ```
 
-- nd_application_workflow/workflow_employee_lookup_reveal - include in pages from which the user can add notifications
+- nd_application_workflow/workflow_employee_lookup_reveal 
+-- include in pages from which the user can add notifications
+-- locals
 
-- nd_application_workflow/workflow_fields_display - use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to 
-workflows created by a different user)
+- nd_application_workflow/workflow_fields_display 
+-- use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to workflows created by a different user)
+-- locals: :f => <nd_workflow instance>, output_type_description: <true|false>, output_custom_type_description: <true|false>
 
-- nd_application_workflow/workflow_approval_and_fyi - use in edit forms to display for editing workflows that can be changed by the user
+- nd_application_workflow/workflow_approval_and_fyi 
+-- use in edit forms to display for editing workflows that can be changed by the user
+-- locals: :f => <nd_workflow instance>, nd_workflow_approval_available: <true|false>
 
-- nd_application_workflow/workflow_routing_queue - use in show forms to display the workflow
+- nd_application_workflow/workflow_routing_queue 
+-- use in show forms to display the workflow
+-- locals: p: <parent record instance>, output_custom_type_description: <true|false>, output_type_description: <true|false>, using_nd_workflow_details: <true|false>
 
 ### acts_as_nd_application_workflow ###
 
@@ -89,8 +96,9 @@ workflows created by a different user)
     }
 
 ### acts_as_nd_application_workflow_detail ###
-acts_as_nd_application_workflow_detail provides the following functionality
+
 - NdWorkflowDetail instance method detail_data_label  uses detail_type to map to the appropriate detail_data label from @@DETAIL_DATA_LABELS **you define this hash**
+
 - NdWorkflowDetail instance method detail_key_description  uses detail_key to mape to the appropriate description from @@DETAIL_KEY_DESCRIPTIONS ** you define this hash**
 
 ### Example NdWorkflow model ###
