@@ -4,7 +4,7 @@ This Rails plug in provides a framework for setting up and processing workflows 
 
 ### Installation ###
 
-Add the following to your Gemfile
+Add the following to your Gemfile, then run ```bundle install```
 ```
 gem 'dotenv' # if does not already exist
 gem 'cocoon' # if does not already exist
@@ -13,15 +13,11 @@ gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee
 gem 'nd_employee_lookup', '~> 0.1.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.1.0'
 ```
 
-Run bundle install
-
-
-Add to application.js
-
+Add following to application.js
+```
 //= require cocoon  # if does not already exist
-
 //= require nd_application_workflow/application_workflow
-
+```
 
 Run rake nd_application_workflow:install:migrations
 
@@ -35,15 +31,12 @@ tie the workflow to its parent document (i.e. change :<parent id> to :financial_
 
 
 You may want to add the following to your application css file
-
+```
 .nd_workflow_name {  font-weight: bold; }
-
 .nd_workflow_netid {  font-weight: bold; }
-
 div.ndwf_list {	background-color: #fff;	border-bottom: 1px #ddd solid;	color: #000; }
-
 div.ndwf_list:hover { background-color: #faf2c0; cursor: pointer; }
-
+```
 ** if you do not already have a css class for ajax-processing, you may want to add one
 with a background spinner image
 
@@ -52,19 +45,18 @@ with a background spinner image
 
 ** to have the nd_workflow.created_by_netid field set for manual notifications, add
 the following to your form: 
-
+```
 <input type="hidden" id="nd_workflow_current_user_id" name="nd_workflow_current_user_netid" value="<%= session.user_netid %>">
+```
 
+- nd_application_workflow/workflow_employee_lookup_reveal - include in pages from which the user can add notifications
 
-nd_application_workflow/workflow_employee_lookup_reveal - include in pages from which the user can add notifications
-
-nd_application_workflow/workflow_fields_display - use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to 
+- nd_application_workflow/workflow_fields_display - use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to 
 workflows created by a different user)
 
-nd_application_workflow/workflow_approval_and_fyi - use in edit forms to display for editing workflows that can be changed by the user
+- nd_application_workflow/workflow_approval_and_fyi - use in edit forms to display for editing workflows that can be changed by the user
 
-nd_application_workflow/workflow_routing_queue - use in show forms to display the workflow
-
+- nd_application_workflow/workflow_routing_queue - use in show forms to display the workflow
 
 ### acts_as_nd_application_workflow ###
 
@@ -103,6 +95,7 @@ acts_as_nd_application_workflow_detail provides the following functionality
 
 ### Example NdWorkflow model ###
 *** Your application must have an NDWorkflow model ***
+```
 # app/models/nd_workflow.rb
 
 require 'acts_as_nd_application_workflow'
@@ -150,9 +143,10 @@ class NdWorkflow < ActiveRecord::Base
     end
   end
 end
-
+```
 ### Example NdWorkflowDetail model ###
 *** Your application must have an NDWorkflowDetail model ***
+```
 # app/models/nd_workflow_detail.rb
 require 'acts_as_nd_application_workflow_detail'
 class NdWorkflowDetail < ActiveRecord::Base
@@ -165,9 +159,10 @@ class NdWorkflowDetail < ActiveRecord::Base
     'OVERLIMIT' => 'Amount exceeds predefined limit'
   }
 end
-
-### Example NdWorkflowDetail model ###
-*** Your application must have an NDWorkflowDetail model ***
+```
+### Example ParentRecord model ###
+*** Your application must have a parent record model as appropriate for your application ***
+```
 # app/models/parent_record.rb
 class ParentRecord < ActiveRecord::Base
   has_many :nd_workflows
@@ -182,7 +177,7 @@ class ParentRecord < ActiveRecord::Base
     app_d = app.nd_workflow_details.create( detail_type: 'SEP', detail_desc: 'Automatic routing')
   end
 end
-
+```
 
 ### Who do I talk to? ###
 
