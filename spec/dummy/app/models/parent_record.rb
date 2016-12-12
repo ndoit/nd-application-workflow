@@ -1,6 +1,8 @@
 class ParentRecord < ActiveRecord::Base
   has_many :nd_workflows
   accepts_nested_attributes_for :nd_workflows
+  has_many :manual_workflows, -> { where( "auto_or_manual = 'manual'")}, :class_name => "NdWorkflow"
+  accepts_nested_attributes_for :manual_workflows  
   validates :parent_desc, presence: true
 
   # Add an automatic approval_notes

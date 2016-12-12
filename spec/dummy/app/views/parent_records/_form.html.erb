@@ -26,9 +26,9 @@ $(document).ready(function(){
     <%= pr.hidden_field :nd_workflow_approval_available %>
   <p>** once saved only the last workflow item can be edited</p>
   <div id="nd_workflow_list">
-    <% wf_count = @parent_record.nd_workflows.count %>
+    <% wf_count = @parent_record.manual_workflows.count %>
     <% wf_index = 1 %>
-    <%= pr.fields_for :nd_workflows do |wf| %>
+    <%= pr.fields_for :manual_workflows do |wf| %>
       <% if wf_index < wf_count %>
         <%= render "/nd_application_workflow/workflow_fields_display", :f => wf, output_type_description: true, output_custom_type_description: false %>
       <% else %>

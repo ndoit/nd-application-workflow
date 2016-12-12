@@ -12,3 +12,14 @@
    padding: 10px;
    background: white  asset-data-url('ui-anim_basic_16x16.gif') right center no-repeat;
 }
+
+div.ndwf_list {
+	background-color: #fff;
+	border-bottom: 1px #ddd solid;
+	color: #000;
+}
+
+div.ndwf_list:hover {
+	background-color: #faf2c0;
+	cursor: pointer;
+}

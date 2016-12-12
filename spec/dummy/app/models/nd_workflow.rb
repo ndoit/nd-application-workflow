@@ -6,7 +6,7 @@ class NdWorkflow < ActiveRecord::Base
   acts_as_nd_application_workflow
 
   include Workflow
-  @@WORKFLOW_STATE_DESC['created'] = 'In Process';
+  @@WORKFLOW_STATE_DESC['created'] = 'Pending';
   #Workflow provided by the workflow gem.
   workflow do
     state :created do

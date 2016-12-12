@@ -7,7 +7,7 @@
     <div class="columns small-2">Status</div>
   </div>
     <% p.nd_workflows.each do |wf| %>
-      <div class="row" id="d_routing_queue_<%= wf.id %>" <% if wf.is_approval? %>class="short_bottom"<% end %>>
+      <div class="row  ndwf_routing_queue" id="d_ndwf_routing_queue_<%= wf.id %>" <% if wf.is_approval? %>class="short_bottom"<% end %>>
         <div class="columns small-2"><%= wf.assigned_to_netid %></div>
         <div class="columns small-4"><%= wf.assigned_to_first_name %> <%= wf.assigned_to_last_name %></div>
         <div class="columns small-4"><% if output_custom_type_description %><%= wf.workflow_custom_type_description %><% end %> <% if output_type_description %><%= wf.workflow_type_description %><% end %></div>
@@ -15,15 +15,15 @@
       </div>
       <% if using_nd_workflow_details %>
         <% if wf.nd_workflow_details.count > 0 %>
-          <div class="row">
-            <div class="columns small-skip-2 small-10">
-            <% wf.nd_workflow_details.each do |v| %>
-              <% if v.detail_data %><%= v.detail_data_label %>: <% v.detail_data %>: <% end %>
-              <% if v.detail_key_description %><%= v.detail_key_description %><% end %>
-              <% if v.detail_desc %><%= v.detail_desc %><% end %><br />
-            <% end %>
+          <% wf.nd_workflow_details.each do |v| %>
+            <div class="row ndwf_routing_queue_detail">
+              <div class="columns small-offset-2 small-10">
+                <% if v.detail_data %><%= v.detail_data_label %>: <%= v.detail_data %>: <% end %>
+                <% if v.detail_key_description %><%= v.detail_key_description %><% end %>
+                <% if v.detail_desc %><%= v.detail_desc %><% end %>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       <% end %>
       <% if wf.workflow_state == "approved" %>

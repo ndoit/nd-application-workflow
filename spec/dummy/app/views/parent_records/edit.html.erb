@@ -1,6 +1,5 @@
-<h1>Editing Parent Record</h1>
+<h1>Parent Record <%= @parent_record.id %> </h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @parent_record %> |
-<%= link_to 'Back', parent_records_path %>
+<%= link_to 'Show', @parent_record, class: 'button small' %> |

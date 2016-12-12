@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20161205234544) do
 
-  create_table "drecs", force: :cascade do |t|
-    t.integer  "prec_id"
-    t.string   "drec_desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "nd_employee_lookup_employees", force: :cascade do |t|
     t.text     "net_id"
     t.text     "nd_id"
@@ -38,6 +31,7 @@ ActiveRecord::Schema.define(version: 20161205234544) do
 
   create_table "nd_workflow_details", force: :cascade do |t|
     t.integer  "nd_workflow_id"
+    t.string   "detail_type"
     t.string   "detail_data"
     t.string   "detail_key"
     t.string   "detail_desc"
@@ -65,14 +59,9 @@ ActiveRecord::Schema.define(version: 20161205234544) do
 
   create_table "parent_records", force: :cascade do |t|
     t.string   "parent_desc"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  create_table "precs", force: :cascade do |t|
-    t.string   "prec_desc"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "nd_workflow_approval_available"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
 end
