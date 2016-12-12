@@ -1,15 +1,10 @@
-# README #
+# NdApplicationWorkflow #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+This Rails plug in provides a framework for setting up and processing workflows within an application.  A ZURB Foundation modal reveal form is provided along with the ability to lookup ND employees to be assigned workflow.  Workflow can be defined as three types: fyi, approval, or task.
 
-### What is this repository for? ###
+### Installation ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
+Add gem 'nd_application_workflow', 
 * Summary of set up
 * Configuration
 * Dependencies
