@@ -5,48 +5,80 @@ This Rails plug in provides a framework for setting up and processing workflows 
 ### Installation ###
 
 Add the following to your Gemfile
+
 gem 'dotenv' # if does not already exist
+
 gem 'cocoon' # if does not already exist
+
 gem 'workflow' # if does not already exist
+
 gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.2.3'  # if does not already exist
+
 gem 'nd_employee_lookup', '~> 0.1.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.1.0'
+
 
 Run bundle install
 
+
 Add to application.js
+
 //= require cocoon  # if does not already exist
+
 //= require nd_application_workflow/application_workflow
 
+
 Run rake nd_application_workflow:install:migrations
+
 - Edit the create_nd_workflows migration to change :<parent id> to a field name to
 tie the workflow to its parent document (i.e. change :<parent id> to :financial_document_id
+
 - Run rake db:migrate
+
 
 ### Setup ###
 
+
 You may want to add the following to your application css file
+
 .nd_workflow_name {  font-weight: bold; }
+
 .nd_workflow_netid {  font-weight: bold; }
+
 div.ndwf_list {	background-color: #fff;	border-bottom: 1px #ddd solid;	color: #000; }
+
 div.ndwf_list:hover { background-color: #faf2c0; cursor: pointer; }
+
 ** if you do not already have a css class for ajax-processing, you may want to add one
 with a background spinner image
 
+
 ### Plug in partials ###
+
 ** to have the nd_workflow.created_by_netid field set for manual notifications, add
 the following to your form: 
+
 <input type="hidden" id="nd_workflow_current_user_id" name="nd_workflow_current_user_netid" value="<%= session.user_netid %>">
 
+
 nd_application_workflow/workflow_employee_lookup_reveal - include in pages from which the user can add notifications
-nd_application_workflow/workflow_fields_display - use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to workflows created by a different user)
+
+nd_application_workflow/workflow_fields_display - use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to 
+workflows created by a different user)
+
 nd_application_workflow/workflow_approval_and_fyi - use in edit forms to display for editing workflows that can be changed by the user
+
 nd_application_workflow/workflow_routing_queue - use in show forms to display the workflow
+
 
 ### acts_as_nd_application_workflow ###
 
+
 - NdWorkflow instance method is_submitter_approval?  (where workflow_type == approval && auto_or_manual = manual)
+
 - NdWorkflow instance method is_approval? (where workflow_type = approval)
+
 - NdWorkflow instance method approve(user_id,notes) sets approved_by,approved_date and approval_notes
+
 - @@WORKFLOW_STATE_DESC hash with the following: 
       'new'             => 'Empty',
       'created'         => 'Pending Submission',
