@@ -4,6 +4,13 @@
   <strong>Parent desc:</strong>
   <%= @parent_record.parent_desc %>
 </p>
-
+<p>
+  <strong>ND Workflow Approval Available:</strong>
+  <%= @parent_record.nd_workflow_approval_available %>
+</p>
+<h3>Routing Queue</h3>
+<% if @parent_record.nd_workflows.count > 0 %>
+  <%= render "/nd_application_workflow/workflow_routing_queue", p: @parent_record, output_custom_type_description: false, output_type_description: true, using_nd_workflow_details: false %>
+<% end %>
 <%= link_to 'Edit', edit_parent_record_path(@parent_record) %> |
 <%= link_to 'Back', parent_records_path %>

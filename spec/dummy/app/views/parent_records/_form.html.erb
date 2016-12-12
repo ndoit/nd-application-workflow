@@ -1,3 +1,10 @@
+<script type="text/javascript">
+$(document).ready(function(){
+
+    enable_nd_workflows();
+});
+
+</script>
 <%= form_for(@parent_record) do |pr| %>
   <% if @parent_record.errors.any? %>
     <div id="error_explanation">
@@ -10,12 +17,39 @@
       </ul>
     </div>
   <% end %>
-
+ <%= render "nd_application_workflow/workflow_employee_lookup_reveal" %>
   <div class="field">
     <%= pr.label :parent_desc %><br>
     <%= pr.text_field :parent_desc %>
   </div>
-    <%= link_to_add_association 'Add', pr, :nd_workflows %>
+  <div>Can add approvals? <%= pr.object.nd_workflow_approval_available.to_s %>
+    <%= pr.hidden_field :nd_workflow_approval_available %>
+  <p>** once saved only the last workflow item can be edited</p>
+  <div id="nd_workflow_list">
+    <% wf_count = @parent_record.nd_workflows.count %>
+    <% wf_index = 1 %>
+    <%= pr.fields_for :nd_workflows do |wf| %>
+      <% if wf_index < wf_count %>
+        <%= render "/nd_application_workflow/workflow_fields_display", :f => wf, output_type_description: true, output_custom_type_description: false %>
+      <% else %>
+        <%= render "/nd_application_workflow/workflow_approval_and_fyi", :f => wf, locals: { nd_workflow_approval_available: pr.object.nd_workflow_approval_available } %>
+      <% end %>
+      <% wf_index += 1 %>
+    <% end %>
+
+  </div>
+
+  <% add_button_label = "Add Notification/Approval" if pr.object.nd_workflow_approval_available
+     add_button_label = "Add Notification" unless pr.object.nd_workflow_approval_available
+     partial_file = "/nd_application_workflow/workflow_approval_and_fyi"
+     %>
+  <div class="row"><div class="large-4 medium-5 small-6 left column">
+    <!-- link_to_add_association functionality comes from the cocoon gem -->
+    <%= link_to add_button_label, "javascript: void(0);", class: "button small", id: "b_add_nd_workflow" %>
+  </div></div>
+  <div style="display: none;">
+    <%= link_to_add_association add_button_label, pr, :nd_workflows, { :partial => partial_file, "data-association-insertion-node" => "#nd_workflow_list", "data-association-insertion-method" => "append", :class => "button small", :id => "b_nd_workflow_insert", render_options: {locals: { nd_workflow_approval_available: pr.object.nd_workflow_approval_available}} } %>
+  </div>
   <div class="actions">
     <%= pr.submit %>
   </div>

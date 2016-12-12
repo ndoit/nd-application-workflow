@@ -7,6 +7,8 @@ require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
+require 'dotenv'
+Dotenv.load ".env.local"
 
 Bundler.require(*Rails.groups)
 require "nd_application_workflow"
@@ -29,4 +31,3 @@ module Dummy
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
-
