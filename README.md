@@ -10,7 +10,7 @@ gem 'dotenv' # if does not already exist
 gem 'cocoon' # if does not already exist
 gem 'workflow' # if does not already exist
 gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.2.3'  # if does not already exist
-gem 'nd_employee_lookup', '~> 0.1.0', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'v0.1.0'
+gem 'nd_application_workflow', '~> 0.1.0', git: 'git@bitbucket.org:nd-oit/nd-application-workflow.git', tag: 'v0.1.0'
 ```
 
 Add following to application.js
