@@ -29,6 +29,91 @@ tie the workflow to its parent document (i.e. change :<parent id> to :financial_
 
 ### Setup ###
 
+### Example NdWorkflow model ###
+*** Your application must have an NDWorkflow model ***
+```
+# app/models/nd_workflow.rb
+
+require 'acts_as_nd_application_workflow'
+class NdWorkflow < ActiveRecord::Base
+  belongs_to :parent_record
+  has_many :nd_workflow_details
+  acts_as_nd_application_workflow
+
+  include Workflow
+  #Workflow provided by the workflow gem.
+  workflow do
+    state :created do
+      event :email_sent, :transitions_to => :emailed
+      event :submit, :transitions_to => :submitted, :unless => proc {  |wf| wf.is_approval? }
+      event :submit, :transitions_to => :pending_approval, :if => proc {  |wf| wf.is_approval? }
+      event :return, :transitions_to => :returned_for_correction
+      event :void, :transitions_to => :voided
+    end
+    state :returned_for_correction do
+      event :email_sent, :transitions_to => :emailed
+      event :return, :transitions_to => :returned_for_correction
+      event :void, :transitions_to => :voided
+    end
+    state :pending_approval do
+      event :approve, :transitions_to => :approved
+      event :return, :transitions_to => :returned_for_correction
+      event :email_sent, :transitions_to => :emailed
+    end
+    state :emailed do
+      event :approve, :transitions_to => :approved
+      event :return, :transitions_to => :returned_for_correction
+      event :email_sent, :transitions_to => :emailed
+    end
+    state :approved do
+      event :approve, :transitions_to => :approved
+      event :email_sent, :transitions_to => :emailed
+    end
+    state :submitted do
+      event :submit, :transitions_to => :submitted
+      event :approve, :transitions_to => :approved
+    end
+    state :voided do
+      event :submit, :transitions_to => :submitted, :unless => proc {  |wf| wf.is_approval? }
+      event :submit, :transitions_to => :pending_approval, :if => proc {  |wf| wf.is_approval? }
+    end
+  end
+end
+```
+### Example NdWorkflowDetail model ###
+*** Your application must have an NDWorkflowDetail model ***
+```
+# app/models/nd_workflow_detail.rb
+require 'acts_as_nd_application_workflow_detail'
+class NdWorkflowDetail < ActiveRecord::Base
+  belongs_to :nd_workflow
+  acts_as_nd_application_workflow_detail
+  @@DETAIL_DATA_LABELS = {
+    'JV' => 'Fund'
+  }
+  @@DETAIL_KEY_DESCRIPTIONS = {
+    'OVERLIMIT' => 'Amount exceeds predefined limit'
+  }
+end
+```
+### Example ParentRecord model ###
+*** Your application must have a parent record model as appropriate for your application ***
+```
+# app/models/parent_record.rb
+class ParentRecord < ActiveRecord::Base
+  has_many :nd_workflows
+  accepts_nested_attributes_for :nd_workflows
+  has_many :manual_workflows, -> { where( "auto_or_manual = 'manual'")}, :class_name => "NdWorkflow"
+  accepts_nested_attributes_for :manual_workflows
+
+  # Add an automatic approval_notes
+  def add_auto_approvals
+    app = self.nd_workflows.create(workflow_type: 'approval', auto_or_manual: 'auto', assigned_to_netid: 'HR', assigned_to_first_name: 'Human Resources')
+    app_d = app.nd_workflow_details.create( detail_type: 'JV', detail_data: '100000', detail_key: 'OVERLIMIT')
+    app_d = app.nd_workflow_details.create( detail_type: 'SEP', detail_desc: 'Automatic routing')
+  end
+end
+```
 
 You may want to add the following to your application css file
 ```
@@ -116,91 +201,7 @@ To work properly, you need a visible button on your form with the id b_add_nd_wo
 
 - NdWorkflowDetail instance method detail_key_description  uses detail_key to mape to the appropriate description from @@DETAIL_KEY_DESCRIPTIONS ** you define this hash**
 
-### Example NdWorkflow model ###
-*** Your application must have an NDWorkflow model ***
-```
-# app/models/nd_workflow.rb
 
-require 'acts_as_nd_application_workflow'
-class NdWorkflow < ActiveRecord::Base
-  belongs_to :parent_record
-  has_many :nd_workflow_details
-  acts_as_nd_application_workflow
-
-  include Workflow
-  #Workflow provided by the workflow gem.
-  workflow do
-    state :created do
-      event :email_sent, :transitions_to => :emailed
-      event :submit, :transitions_to => :submitted, :unless => proc {  |wf| wf.is_approval? }
-      event :submit, :transitions_to => :pending_approval, :if => proc {  |wf| wf.is_approval? }
-      event :return, :transitions_to => :returned_for_correction
-      event :void, :transitions_to => :voided
-    end
-    state :returned_for_correction do
-      event :email_sent, :transitions_to => :emailed
-      event :return, :transitions_to => :returned_for_correction
-      event :void, :transitions_to => :voided
-    end
-    state :pending_approval do
-      event :approve, :transitions_to => :approved
-      event :return, :transitions_to => :returned_for_correction
-      event :email_sent, :transitions_to => :emailed
-    end
-    state :emailed do
-      event :approve, :transitions_to => :approved
-      event :return, :transitions_to => :returned_for_correction
-      event :email_sent, :transitions_to => :emailed
-    end
-    state :approved do
-      event :approve, :transitions_to => :approved
-      event :email_sent, :transitions_to => :emailed
-    end
-    state :submitted do
-      event :submit, :transitions_to => :submitted
-      event :approve, :transitions_to => :approved
-    end
-    state :voided do
-      event :submit, :transitions_to => :submitted, :unless => proc {  |wf| wf.is_approval? }
-      event :submit, :transitions_to => :pending_approval, :if => proc {  |wf| wf.is_approval? }
-    end
-  end
-end
-```
-### Example NdWorkflowDetail model ###
-*** Your application must have an NDWorkflowDetail model ***
-```
-# app/models/nd_workflow_detail.rb
-require 'acts_as_nd_application_workflow_detail'
-class NdWorkflowDetail < ActiveRecord::Base
-  belongs_to :nd_workflow
-  acts_as_nd_application_workflow_detail
-  @@DETAIL_DATA_LABELS = {
-    'JV' => 'Fund'
-  }
-  @@DETAIL_KEY_DESCRIPTIONS = {
-    'OVERLIMIT' => 'Amount exceeds predefined limit'
-  }
-end
-```
-### Example ParentRecord model ###
-*** Your application must have a parent record model as appropriate for your application ***
-```
-# app/models/parent_record.rb
-class ParentRecord < ActiveRecord::Base
-  has_many :nd_workflows
-  accepts_nested_attributes_for :nd_workflows
-  has_many :manual_workflows, -> { where( "auto_or_manual = 'manual'")}, :class_name => "NdWorkflow"
-  accepts_nested_attributes_for :manual_workflows
-
-  # Add an automatic approval_notes
-  def add_auto_approvals
-    app = self.nd_workflows.create(workflow_type: 'approval', auto_or_manual: 'auto', assigned_to_netid: 'HR', assigned_to_first_name: 'Human Resources')
-    app_d = app.nd_workflow_details.create( detail_type: 'JV', detail_data: '100000', detail_key: 'OVERLIMIT')
-    app_d = app.nd_workflow_details.create( detail_type: 'SEP', detail_desc: 'Automatic routing')
-  end
-end
-```
 
 ### Who do I talk to? ###
 
