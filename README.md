@@ -70,12 +70,12 @@ the following to your form ** replace session.user_netid with the appropriate se
 
 ### Add workflow button ###
 To work properly, you need a visible button on your form with the id b_add_nd_workflow.  You also need a hidden link_to_add_association. The following code provides an example.
-'''<div class="row"><div class="large-4 medium-5 small-6 left column">
+'''  <div class="row"><div class="large-4 medium-5 small-6 left column">
     <!-- link_to_add_association functionality comes from the cocoon gem -->
     <%= link_to add_button_label, "javascript: void(0);", class: "button small", id: "b_add_nd_workflow" %>
   </div></div>
   <div style="display: none;">
-    <%= link_to_add_association add_button_label, pr, :nd_workflows, { :partial => partial_file, "data-association-insertion-node" => "#nd_workflow_list", "data-association-insertion-method" => "append", :class => "button small", :id => "b_nd_workflow_insert", render_options: {locals: { nd_workflow_approval_available: pr.object.nd_workflow_approval_available}} } %>
+    <%= link_to_add_association add_button_label, form, :nd_workflows, { :partial => "/nd_application_workflow/workflow_approval_and_fyi", "data-association-insertion-node" => "#nd_workflow_list", "data-association-insertion-method" => "append", :class => "button small", :id => "b_nd_workflow_insert", render_options: {locals: { nd_workflow_approval_available: false}} } %>
   </div>
 ```
 
