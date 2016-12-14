@@ -161,7 +161,7 @@ To work properly, you need a visible button on your form with the id b_add_nd_wo
     <%= link_to "Add Notification", "javascript: void(0);", class: "button small", id: "b_add_nd_workflow" %>
   </div></div>
   <div style="display: none;">
-    <%= link_to_add_association add_button_label, form, :nd_workflows, { :partial => "/nd_application_workflow/workflow_approval_and_fyi", "data-association-insertion-node" => "#nd_workflow_list", "data-association-insertion-method" => "append", :class => "button small", :id => "b_nd_workflow_insert", render_options: {locals: { nd_workflow_approval_available: false}} } %>
+    <%= link_to_add_association "Add Notification", form, :nd_workflows, { :partial => "/nd_application_workflow/workflow_approval_and_fyi", "data-association-insertion-node" => "#nd_workflow_list", "data-association-insertion-method" => "append", :class => "button small", :id => "b_nd_workflow_insert", render_options: {locals: { nd_workflow_approval_available: false}} } %>
   </div>
 ```
 
