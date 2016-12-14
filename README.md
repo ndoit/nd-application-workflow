@@ -44,26 +44,29 @@ with a background spinner image
 ### Plug in partials ###
 
 ** to have the nd_workflow.created_by_netid field set for manual notifications, add
-the following to your form: 
+the following to your form ** replace session.user_netid with the appropriate session variable in your application: 
 ```
 <input type="hidden" id="nd_workflow_current_user_id" name="nd_workflow_current_user_netid" value="<%= session.user_netid %>">
 ```
 
 - nd_application_workflow/workflow_employee_lookup_reveal 
 -- include in pages from which the user can add notifications
--- locals
+-- see example in spec/dummmy/app/views/parent_records/_form.html.erb
 
 - nd_application_workflow/workflow_fields_display 
 -- use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to workflows created by a different user)
 -- locals: :f => <nd_workflow instance>, output_type_description: <true|false>, output_custom_type_description: <true|false>
+-- see example in spec/dummy/app/views/parent_records/_form.html.erb
 
 - nd_application_workflow/workflow_approval_and_fyi 
 -- use in edit forms to display for editing workflows that can be changed by the user
 -- locals: :f => <nd_workflow instance>, nd_workflow_approval_available: <true|false>
+-- see example in spec/dummy/app/views/parent_records/_form.html.erb
 
 - nd_application_workflow/workflow_routing_queue 
 -- use in show forms to display the workflow
 -- locals: p: <parent record instance>, output_custom_type_description: <true|false>, output_type_description: <true|false>, using_nd_workflow_details: <true|false>
+-- see example in spec/dummy/app/views/parent_records/show.html.erb
 
 ### acts_as_nd_application_workflow ###
 
