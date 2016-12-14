@@ -153,9 +153,17 @@ the following to your form ** replace session.user_netid with the appropriate se
 -- locals: p: <parent record instance>, output_custom_type_description: <true|false>, output_type_description: <true|false>, using_nd_workflow_details: <true|false>
 -- see example in spec/dummy/app/views/parent_records/show.html.erb
 
-### Add workflow button ###
-To work properly, you need a visible button on your form with the id b_add_nd_workflow.  You also need a hidden link_to_add_association. The following code provides an example.
+### Add workflow functionality ###
+To work properly, you need the following javascript, a visible button on your form with the id b_add_nd_workflow, and a hidden link_to_add_association. The following code provides an example.
 ```
+<script type="text/javascript">
+$(document).ready(function(){
+
+    enable_nd_workflows();
+});
+
+</script>
+...
   <div class="row"><div class="large-4 medium-5 small-6 left column">
     <!-- link_to_add_association functionality comes from the cocoon gem -->
     <%= link_to "Add Notification", "javascript: void(0);", class: "button small", id: "b_add_nd_workflow" %>
