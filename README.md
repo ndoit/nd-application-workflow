@@ -26,6 +26,11 @@ tie the workflow to its parent document (i.e. change :<parent id> to :financial_
 
 - Run rake db:migrate
 
+Setup .env.local
+```
+You will need to have HRPY_API_BASE and HRPY_API_KEY defined
+```
+
 
 ### Setup ###
 
