@@ -22,4 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "workflow"
   s.add_development_dependency "sqlite3", '~> 1.3.11'
   s.add_development_dependency 'rspec-rails', '~> 3.5.0'
+  s.add_development_dependency 'capybara', '~> 2.7.1'
+  s.add_development_dependency 'shoulda-matchers', '~> 3.1.1'
 end
