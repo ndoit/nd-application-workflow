@@ -51,7 +51,7 @@ feature 'Workflow with only FYI' do
     expect(all_results.count).to eq 4
   end
 
-  it 'complains if a search contains only first name' do
+  it 'complains if a search contains only first name', js: true do
     visit '/parent_records/new/false'
     find('a.button#b_add_nd_workflow', text: 'Add Notification').click
     find('input#f_nd_workflow_input_first').set('kingdon')
