@@ -12,8 +12,9 @@ require 'capybara/rspec'
 #require 'capybara/webkit/matchers'
 
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome,
-                                 args: %w{ window-size=1024,768 })
+  Capybara::Selenium::Driver.new(app, :browser => :remote,
+                                 url: "http://localhost:4444/wd/hub",
+                                desired_capabilities: :chrome)
 end
 Capybara.javascript_driver = :chrome
 
