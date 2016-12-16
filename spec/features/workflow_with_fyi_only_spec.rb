@@ -1,8 +1,8 @@
 feature 'Workflow with only FYI' do
-  it 'should not have JS errors', js: true do
-    visit '/'
-    expect(page).not_to have_errors
-  end
+  # it 'should not have JS errors', js: true do
+  #   visit '/'
+  # # # # expect(page).not_to have_errors
+  # end
 
   it 'returns negative result on search that does not match', js: true do
     visit '/parent_records/new/false'
@@ -20,7 +20,7 @@ feature 'Workflow with only FYI' do
     find('a.button#b_nd_workflow_find_employee', text: 'Find').click
     list = find('#nd_workflow_entry_results_list')
     result = list.find('div.ndwf_list#ndwf_add_KBARRET8')
-    expect(result.text).to eq 'Kingdon Barrett KBARRET8Appl Dvlpmnt Professional29015, Customer IT Solutions'
+    expect(result.text).to eq 'Kingdon Barrett KBARRET8 Appl Dvlpmnt Professional 29015, Customer IT Solutions'
   end
 
   it 'returns a list for a partial netid match', js: true do
@@ -30,8 +30,8 @@ feature 'Workflow with only FYI' do
     find('a.button#b_nd_workflow_find_employee', text: 'Find').click
     list = find('#nd_workflow_entry_results_list')
     the_result = list.find('div.ndwf_list#ndwf_add_KBARRET8')
-    expect(the_result.text).to eq 'Kingdon Barrett KBARRET8Appl Dvlpmnt Professional29015, Customer IT Solutions'
-    list.find('div.ndwf_list', text: 'Katrina Barron KBARRONFT TR Faculty35040, Mathematics')
+    expect(the_result.text).to eq 'Kingdon Barrett KBARRET8 Appl Dvlpmnt Professional 29015, Customer IT Solutions'
+    list.find('div.ndwf_list', text: 'Katrina Barron KBARRON FT TR Faculty 35040, Mathematics')
     all_results = list.all('div.ndwf_list')
     expect(all_results.count).to eq 4
   end
@@ -44,8 +44,8 @@ feature 'Workflow with only FYI' do
     find('a.button#b_nd_workflow_find_employee', text: 'Find').click
     list = find('#nd_workflow_entry_results_list', wait: 90, match: :first)
     the_result = list.find('div.ndwf_list#ndwf_add_KBARRET8')
-    expect(the_result.text).to eq 'Kingdon Barrett KBARRET8Appl Dvlpmnt Professional29015, Customer IT Solutions'
-    list.find('div.ndwf_list', text: 'Kevin Barrett BKEVINClerical46010, Financial Aid')
+    expect(the_result.text).to eq 'Kingdon Barrett KBARRET8 Appl Dvlpmnt Professional 29015, Customer IT Solutions'
+    list.find('div.ndwf_list', text: 'Kevin Barrett BKEVIN Clerical 46010, Financial Aid')
     all_results = list.all('div.ndwf_list')
     expect(all_results.count).to eq 4
   end
