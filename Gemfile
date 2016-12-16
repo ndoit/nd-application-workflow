@@ -18,4 +18,3 @@ gem 'nd_employee_lookup', '~> 0.2.0', git: 'git@bitbucket.org:nd-oit/nd-employee
 gem 'workflow'
 #gem 'capybara-webkit', git: 'git@github.com:kingdonb/capybara-webkit.git'
 gem 'selenium-webdriver'
-gem 'pry'
