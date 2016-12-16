@@ -1,3 +1,4 @@
+require 'pry'
 feature 'Workflow with only FYI' do
   it 'should not have JS errors', js: true do
     visit '/'
@@ -55,8 +56,8 @@ feature 'Workflow with only FYI' do
     find('a.button#b_add_nd_workflow', text: 'Add Notification').click
     find('input#f_nd_workflow_input_first').set('kingdon')
     find('a.button#b_nd_workflow_find_employee', text: 'Find').click
-    pending #
-    error = find('#nd_workflow_employee_invalid_entries', wait: 15)
+    binding.pry
+    error = find('div.error#nd_workflow_employee_invalid_entries', wait: 15)
     expect(error.text).to eq 'Invalid entries. You must provide part or all of the last name -OR- part or all of the net id. First name is optional.'
   end
 end
