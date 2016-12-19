@@ -120,6 +120,41 @@ class ParentRecord < ActiveRecord::Base
 end
 ```
 
+### Example ParentRecord controller with strong params ###
+```
+class ParentRecordsController < ApplicationController
+  include NdApplicationWorkflow::NdWorkflowsHelper
+...
+  def create
+    @parent_record = ParentRecord.new(parent_record_params)
+    if @parent_record.save
+      # Add an automatic approval_notes
+      @parent_record.add_auto_approvals
+
+      redirect_to @parent_record, notice: 'Parent record was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  def update
+    if @parent_record.update(parent_record_params)
+      redirect_to @parent_record, notice: 'Parent record was successfully updated.'
+    else
+      render :edit
+    end
+  end
+...
+  private
+    # Only allow a trusted parameter "white list" through.
+    def parent_record_params
+      params.require(:parent_record).permit(:parent_desc,:nd_workflow_approval_available,:nd_workflows_attributes => nd_workflows_attributes)
+    end
+
+end
+
+```
+
 You may want to add the following to your application css file
 ```
 .nd_workflow_name {  font-weight: bold; }
