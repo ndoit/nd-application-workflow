@@ -1,4 +1,5 @@
 class ParentRecordsController < ApplicationController
+  include NdApplicationWorkflow::NdWorkflowsHelper
   before_action :set_parent_record, only: [:show, :edit, :update, :destroy]
 
   # GET /parent_records
@@ -64,22 +65,5 @@ class ParentRecordsController < ApplicationController
       params.require(:parent_record).permit(:parent_desc,:nd_workflow_approval_available,:nd_workflows_attributes => nd_workflows_attributes)
     end
 
-    def nd_workflows_attributes
-      [
-        :id,
-        :workflow_type,
-        :auto_or_manual,
-        :workflow_custom_type,
-        :assigned_to_netid,
-        :assigned_to_first_name,
-        :assigned_to_last_name,
-        :email_notes,
-        :email_include_detail,
-        :approval_notes,
-        :approved_date,
-        :approved_by_netid,
-        :workflow_state,
-        :_destroy
-        ]
-  end
+
 end

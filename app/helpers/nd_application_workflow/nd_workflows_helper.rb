@@ -1,5 +1,5 @@
 module NdApplicationWorkflow
-  module NdWorkflowHelper
+  module NdWorkflowsHelper
 
     def nd_workflows_attributes
       [ :id, :workflow_type, :auto_or_manual, :workflow_custom_type, :assigned_to_netid,
