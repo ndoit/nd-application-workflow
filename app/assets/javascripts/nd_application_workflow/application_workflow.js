@@ -51,7 +51,6 @@ function add_nd_workflow_user(row_clicked) {
       var input_created_by_netid = $('input.nd_workflow_created_by_netid');
       input_created_by_netid[i].value = current_user_netid[0].value;
     }
-    nd_workflow_current_user_id
     var input_workflow_types = $('input.nd_workflow_type');
     input_workflow_types[i].value = 'fyi';
     var input_workflow_manual = $('input.nd_workflow_auto_or_manual');
