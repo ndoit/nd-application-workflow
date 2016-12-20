@@ -151,7 +151,7 @@ function find_nd_workflow_employees() {
         add_nd_workflow_user(this);
       });
 
-  //    $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
+      $('#nd_workflow_find_employee_processing').removeClass("ajax-processing");
     }
   });
 
