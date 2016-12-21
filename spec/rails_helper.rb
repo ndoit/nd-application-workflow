@@ -7,16 +7,18 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
-#require 'capybara-webkit'
+require 'capybara-webkit'
 require 'capybara/rspec'
-#require 'capybara/webkit/matchers'
+require 'capybara/webkit/matchers'
 
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :remote,
-                                 url: "http://localhost:4444/wd/hub",
-                                desired_capabilities: :chrome)
-end
-Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :webkit
+
+# Capybara.register_driver :chrome do |app|
+#   Capybara::Selenium::Driver.new(app, :browser => :remote,
+#                                  url: "http://localhost:4444/wd/hub",
+#                                 desired_capabilities: :chrome)
+# end
+# Capybara.javascript_driver = :chrome
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
