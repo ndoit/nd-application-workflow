@@ -232,7 +232,7 @@ $(document).ready(function(){
       'voided'          => 'Voided',
       'returned_for_correction' => 'Pending Submission',
       'saved' => 'Saved'
-- NdWorkflow instance method workflow_type_description which returns the workflow_state mapped value of @@WORKFLOW_TYPE_DESC 
+- NdWorkflow instance method workflow_state_description which returns the workflow_state mapped value of @@WORKFLOW_TYPE_DESC 
 ** if you need to add or modify @@WORKFLOW_STATE_DESC you can edit/add to the hash in your model like this:
   @@WORKFLOW_STATE_DESC['created'] = 'Pending';
   
