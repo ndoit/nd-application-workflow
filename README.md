@@ -46,6 +46,16 @@ class NdWorkflow < ActiveRecord::Base
   acts_as_nd_application_workflow
 
   include Workflow
+
+  # needed if custom_type will be displayed in the Routing Queueu
+  @@WORKFLOW_CUSTOM_TYPE_DESC = {
+    'banner_update'      => 'Update Banner',
+  }
+
+  def workflow_custom_type_description
+    @@WORKFLOW_CUSTOM_TYPE_DESC[self.workflow_custom_type]
+  end
+
   #Workflow provided by the workflow gem.
   workflow do
     state :created do
