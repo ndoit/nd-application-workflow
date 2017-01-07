@@ -2,16 +2,16 @@
 <div id="nd_workflows_routing_queue">
   <div class="row">
     <div class="columns small-2">Net ID</div>
-    <div class="columns small-4">User name</div>
-    <div class="columns small-4">Action Required</div>
-    <div class="columns small-2">Status</div>
+    <div class="columns small-3">User name</div>
+    <div class="columns small-3">Action Required</div>
+    <div class="columns small-4">Status</div>
   </div>
     <% p.nd_workflows.each do |wf| %>
       <div class="row  ndwf_routing_queue" id="d_ndwf_routing_queue_<%= wf.id %>" <% if wf.is_approval? %>class="short_bottom"<% end %>>
         <div class="columns small-2"><%= wf.assigned_to_netid %></div>
-        <div class="columns small-4"><%= wf.assigned_to_first_name %> <%= wf.assigned_to_last_name %></div>
-        <div class="columns small-4"><% if output_custom_type_description %><%= wf.workflow_custom_type_description %><% end %> <% if output_type_description %><%= wf.workflow_type_description %><% end %></div>
-        <div class="columns small-2"><%= wf.workflow_state_description %><% if wf.workflow_state == "approved" %> by <%= wf.approved_by.upcase %> on <%= wf.approved_date.strftime("%m/%d/%Y") %><% end %></div>
+        <div class="columns small-3"><%= wf.assigned_to_first_name %> <%= wf.assigned_to_last_name %></div>
+        <div class="columns small-3"><% if output_custom_type_description %><%= wf.workflow_custom_type_description %><% end %> <% if output_type_description %><%= wf.workflow_type_description %><% end %></div>
+        <div class="columns small-4"><%= wf.workflow_state_description %><% if wf.workflow_state == "approved" %> by <%= wf.approved_by.upcase %> on <%= wf.approved_date.strftime("%m/%d/%Y") %><% end %></div>
       </div>
       <% if using_nd_workflow_details %>
         <% if wf.nd_workflow_details.count > 0 %>
@@ -36,3 +36,4 @@
         <% end %>
       <% end %>
     <% end %>
+</div>

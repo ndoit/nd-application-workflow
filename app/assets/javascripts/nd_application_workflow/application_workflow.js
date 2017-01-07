@@ -56,7 +56,9 @@ function add_nd_workflow_user(row_clicked) {
     var input_workflow_manual = $('input.nd_workflow_auto_or_manual');
     input_workflow_manual[i].value = 'manual';
     var input_nd_workflow_include_details_cb = $('input.nd_workflow_email_include_detail_cb');
-    input_nd_workflow_include_details_cb[i].checked = true;
+    if (input_nd_workflow_include_details_cb[i] != null) {
+      input_nd_workflow_include_details_cb[i].checked = true;
+    }
     $('.nd_workflow_approval_cb').on('change',function() {
          set_workflow_type_on_approval_checkbox_change(this);
        });
@@ -158,12 +160,14 @@ function find_nd_workflow_employees() {
 }
 
 function set_workflow_type_on_approval_checkbox_change (approval_checkbox) {
-  var workflow_type_field = approval_checkbox.nextElementSibling;
+  var cb_id = approval_checkbox.id;
+  var id_prefix = cb_id.substring(0,cb_id.length - "approval".length);
+  var workflow_type_field = $('#' + id_prefix + 'workflow_type');
   if (approval_checkbox.checked) {
-    workflow_type_field.value = 'approval';
+    workflow_type_field[0].value = 'approval';
   }
   else {
-    workflow_type_field.value = 'fyi';
+    workflow_type_field[0].value = 'fyi';
   }
 
 }

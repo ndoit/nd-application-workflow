@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161205234544) do
+ActiveRecord::Schema.define(version: 20161212183042) do
 
   create_table "nd_employee_lookup_employees", force: :cascade do |t|
     t.text     "net_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20161205234544) do
     t.text     "approval_notes"
     t.date     "approved_date"
     t.string   "approved_by_netid"
+    t.string   "created_by_netid"
     t.string   "workflow_state"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -60,8 +61,9 @@ ActiveRecord::Schema.define(version: 20161205234544) do
   create_table "parent_records", force: :cascade do |t|
     t.string   "parent_desc"
     t.boolean  "nd_workflow_approval_available"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "nd_workflow_include_email_detail_cb"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
 end

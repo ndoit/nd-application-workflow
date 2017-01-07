@@ -20,6 +20,12 @@ class ParentRecordsController < ApplicationController
         @parent_record.nd_workflow_approval_available = false
       end
     end
+    @parent_record.nd_workflow_include_email_detail_cb = true
+    if params.has_key? 'email_detail_cb_flag'
+      if params[:email_detail_cb_flag] == 'false'
+        @parent_record.nd_workflow_include_email_detail_cb = false
+      end
+    end
   end
 
   # GET /parent_records/1/edit
@@ -62,7 +68,7 @@ class ParentRecordsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def parent_record_params
-      params.require(:parent_record).permit(:parent_desc,:nd_workflow_approval_available,:nd_workflows_attributes => nd_workflows_attributes)
+      params.require(:parent_record).permit(:parent_desc, :nd_workflow_approval_available, :nd_workflow_include_email_detail_cb, :nd_workflows_attributes => nd_workflows_attributes)
     end
 
 

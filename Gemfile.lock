@@ -19,7 +19,7 @@ GIT
 PATH
   remote: .
   specs:
-    nd_application_workflow (0.1.1)
+    nd_application_workflow (0.1.3)
       foundation-rails (~> 5.4.3.0)
       jquery-rails (~> 4.2.1)
       rails (~> 4.2.7.1)
