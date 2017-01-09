@@ -188,14 +188,19 @@ the following to your form ** replace session.user_netid with the appropriate se
 -- include in pages from which the user can add notifications
 -- see example in spec/dummmy/app/views/parent_records/_form.html.erb
 
-- nd_application_workflow/workflow_fields_display 
+- nd_application_workflow/workflow_fields_display_with_email_detail_option.html.erb
+- nd_application_workflow/workflow_fields_display_without_email_detail_option.html.erb 
 -- use in edit forms to display workflows that cannot be changed by the user (i.e. do not allow modification to workflows created by a different user)
 -- locals: :f => <nd_workflow instance>, output_type_description: <true|false>, output_custom_type_description: <true|false>
 -- see example in spec/dummy/app/views/parent_records/_form.html.erb
 
-- nd_application_workflow/workflow_approval_and_fyi 
+- nd_application_workflow/workflow_edit_fyi_only_with_email_detail_option.html.erb
+- nd_application_workflow/workflow_edit_fyi_only_without_email_detail_option.html.erb
+- nd_application_workflow/workflow_edit_with_approval_with_email_detail_option.html.erb
+- nd_application_workflow/workflow_edit_with_approval_without_email_detail_option.html.erb
 -- use in edit forms to display for editing workflows that can be changed by the user
--- locals: :f => <nd_workflow instance>, nd_workflow_approval_available: <true|false>
+-- locals: :f => <nd_workflow instance>
+-- the different partials will provide or not provide checkboxes to indicate the workflow is an approval and to indicate the notification email will include detail
 -- see example in spec/dummy/app/views/parent_records/_form.html.erb
 
 - nd_application_workflow/workflow_routing_queue 
