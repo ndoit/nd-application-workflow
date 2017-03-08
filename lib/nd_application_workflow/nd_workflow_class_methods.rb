@@ -40,8 +40,9 @@ module ActsAsNdApplicationWorkflow
 
     @@WORKFLOW_TYPE_DESC = {
       'fyi'      => 'Notification',
-      'approval'   => 'Approval',
-      'task' => 'Task',
+      'approval' => 'Approval',
+      'task'     => 'Task',
+      'reminder' => 'Deferred Email',
     }
 
     def workflow_type_description

@@ -27,5 +27,13 @@ module NdApplicationWorkflow
         :orgn_title,
         :pict_code ]
     end
+
+    def american_date(delivery_date)
+      unless delivery_date.blank?
+        delivery_date.strftime('%m/%d/%Y')
+      else
+        ''
+      end
+    end
   end
 end
