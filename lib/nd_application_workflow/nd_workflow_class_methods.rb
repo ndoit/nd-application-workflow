@@ -42,7 +42,7 @@ module ActsAsNdApplicationWorkflow
       'fyi'      => 'Notification',
       'approval' => 'Approval',
       'task'     => 'Task',
-      'reminder' => 'Deferred Email',
+      'reminder' => 'Separation Instructions',
     }
 
     def workflow_type_description
