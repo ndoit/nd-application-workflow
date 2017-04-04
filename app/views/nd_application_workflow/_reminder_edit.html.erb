@@ -11,7 +11,7 @@
           <label>Delivery Date:</label> <%= f.text_field :delivery_date,
                                               class: 'datepicker',
                                               value: if f.object.try(:delivery_date).blank?
-                                                       american_date(Date.today)
+                                                       american_date(Date.today + 1)
                                                      else
                                                        american_date(f.object.delivery_date)
                                                      end %>
