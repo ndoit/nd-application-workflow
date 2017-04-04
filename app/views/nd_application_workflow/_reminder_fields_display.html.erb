@@ -1,0 +1,27 @@
+<div class="nested-fields" >
+  <div class="row">
+    <div class="large-3 medium-3 small-4 left columns">
+      <div class="row">
+        <span class="nd_reminder_name"><%= f.object.assigned_to_first_name %> <%= f.object.assigned_to_last_name %></span>
+      </div>
+      <div class="row">
+        <span class="nd_reminder_netid"><%= f.object.assigned_to_netid %></span>
+      </div>
+    </div>
+    <div class="right small-1 columns">&nbsp;</div>
+    <div class="large-8 medium-8 small-7 right columns">
+      <div class="row">
+        <% if output_custom_type_description %><%= f.object.workflow_custom_type_description %><% end %> <% if output_type_description %><%= f.object.workflow_type_description %><% end %>
+      </div>
+      <div class="row">
+        <% unless f.object.try(:delivery_date).blank? %><strong>Delivery Date:</strong> <%= american_date(f.object.delivery_date) %><% end %>
+      </div>
+        <%= f.hidden_field :workflow_type, class: 'work_flow_type' %>
+        <%= f.hidden_field :email_include_detail, class: 'nd_workflow_include_details_cb' %>
+        <%= f.hidden_field :email_notes %>
+        <%= f.hidden_field :assigned_to_netid, class: 'assigned_to_netid' %><%= f.hidden_field :assigned_to_first_name, class: 'assigned_to_first_name' %> <%= f.hidden_field :assigned_to_last_name, class: 'assigned_to_last_name' %>
+    </div>
+
+  </div>
+
+</div>
