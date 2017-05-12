@@ -17,7 +17,7 @@ module ActsAsNdApplicationWorkflow
     end
 
     def approve( user_id,notes)
-      self.approved_by = user_id
+      self.approved_by_netid = user_id
       self.approved_date = Date.today
       self.approval_notes = notes
     end
