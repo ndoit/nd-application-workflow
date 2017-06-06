@@ -16,7 +16,13 @@ module ActsAsNdApplicationWorkflow
        workflow_type == 'approval'
     end
 
-    def approve( user_id,notes)
+    def approve(user_id, notes)
+      self.approved_by_netid = user_id
+      self.approved_date = Date.today
+      self.approval_notes = notes
+    end
+
+    def complete(user_id, notes)
       self.approved_by_netid = user_id
       self.approved_date = Date.today
       self.approval_notes = notes
@@ -29,6 +35,7 @@ module ActsAsNdApplicationWorkflow
       'submitted'       => 'Submitted',
       'pending_approval' => 'Submitted',
       'approved'        => 'Approved',
+      'completed'       => 'Completed',
       'voided'          => 'Voided',
       'returned_for_correction' => 'Pending Submission',
       'saved' => 'Saved'
