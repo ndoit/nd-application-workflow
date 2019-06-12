@@ -14,7 +14,7 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 gem 'dotenv'
 gem 'cocoon'
-gem 'nd_employee_lookup', '~> 0.4', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git', tag: 'release-0.5'
+gem 'nd_employee_lookup', '~> 0.4.5', git: 'git@bitbucket.org:nd-oit/nd-employee-lookup-gem.git'
 gem 'workflow'
 #gem 'capybara-webkit'
 #gem 'selenium-webdriver'
